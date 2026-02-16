@@ -72,8 +72,6 @@ Continue with steps 3-5 below.
 
 ### Step 3: Setup MongoDB
 1. Install MongoDB Community Edition or use MongoDB Compass
-2. Create a database named `epic-collections`
-3. Default connection: `mongodb://localhost:27017/epic-collections`
 
 ### Step 4: Backend Setup
 ```bash
@@ -82,11 +80,6 @@ cd server
 
 # Install dependencies
 npm install
-
-# The .env file is already configured with:
-# PORT=5000
-# MONGODB_URI=mongodb://localhost:27017/epic-collections
-# NODE_ENV=development
 
 # Start the server
 npm run dev
@@ -207,9 +200,9 @@ Load Sphere/
 
 ### Server (.env)
 ```env
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/epic-collections
-NODE_ENV=development
+PORT
+MONGODB_URI
+NODE
 ```
 
 All sensitive data is stored in the `.env` file and not committed to version control.
