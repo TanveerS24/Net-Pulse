@@ -322,31 +322,6 @@ const TrafficPrediction = () => {
           </div>
         </div>
       )}
-
-      {/* Detailed Scaling Recommendation */}
-      {metrics && metrics.scaling_recommendation && (
-        <div className="calculation-card">
-          <h3 className="calc-title">📊 Detailed Scaling Recommendation</h3>
-          <div className="recommendation-box" style={{ marginTop: '1rem' }}>
-            <p style={{ margin: 0, fontSize: '1rem', lineHeight: '1.6' }}>
-              {metrics.scaling_recommendation}
-            </p>
-          </div>
-        </div>
-      )}
-
-      {/* Complete Binomial Calculation */}
-      {metrics && metrics.binomial_calculation && (
-        <div className="calculation-card">
-          <h3 className="calc-title">🧮 Complete Binomial Distribution Calculation</h3>
-          <div className="formula-display">
-            <p className="formula">P(X = k) = nCk × p^k × (1-p)^(n-k)</p>
-          </div>
-          <pre className="calculation-steps" style={{ fontSize: '0.95rem', lineHeight: '1.8' }}>
-            {metrics.binomial_calculation}
-          </pre>
-        </div>
-      )}
     </div>
   );
 };

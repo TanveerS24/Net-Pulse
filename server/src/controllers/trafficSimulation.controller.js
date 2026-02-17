@@ -11,33 +11,56 @@ const factorial = (n) => {
 };
 
 // Helper function to calculate binomial coefficient (nCk)
+// Optimized to avoid factorial overflow by canceling terms
 const binomialCoefficient = (n, k) => {
   if (k > n) return 0;
-  return factorial(n) / (factorial(k) * factorial(n - k));
+  if (k === 0 || k === n) return 1;
+  
+  // Optimize by using the smaller of k and n-k
+  k = Math.min(k, n - k);
+  
+  // Calculate nCk = n * (n-1) * ... * (n-k+1) / (k * (k-1) * ... * 1)
+  // This avoids calculating large factorials
+  let result = 1;
+  for (let i = 0; i < k; i++) {
+    result *= (n - i);
+    result /= (i + 1);
+  }
+  return result;
 };
 
 // Calculate binomial probability
 const calculateBinomialProbability = (n, k, p) => {
-  const nCk = binomialCoefficient(n, k);
-  const probability = nCk * Math.pow(p, k) * Math.pow(1 - p, n - k);
-  
-  // Generate step-by-step calculation
-  const calculation = `
+  try {
+    const nCk = binomialCoefficient(n, k);
+    const probability = nCk * Math.pow(p, k) * Math.pow(1 - p, n - k);
+    
+    // Safely handle potential Infinity or NaN values
+    const safeNck = isFinite(nCk) ? nCk : 'Very large number';
+    const safeProbability = isFinite(probability) ? probability : 0;
+    
+    // Generate step-by-step calculation with safe values
+    const calculation = `
 Step 1: Calculate nCk = ${n}C${k}
   nCk = ${n}! / (${k}! × ${n - k}!)
-  nCk = ${factorial(n)} / (${factorial(k)} × ${factorial(n - k)})
-  nCk = ${nCk}
+  nCk = ${safeNck}
 
 Step 2: Apply Binomial Formula
   P(X = ${k}) = nCk × p^k × (1-p)^(n-k)
-  P(X = ${k}) = ${nCk} × ${p}^${k} × ${(1 - p).toFixed(4)}^${n - k}
-  P(X = ${k}) = ${nCk} × ${Math.pow(p, k).toFixed(6)} × ${Math.pow(1 - p, n - k).toFixed(6)}
-  P(X = ${k}) = ${probability.toFixed(6)}
+  P(X = ${k}) = ${safeNck} × ${p.toFixed(4)}^${k} × ${(1 - p).toFixed(4)}^${n - k}
+  P(X = ${k}) = ${isFinite(probability) ? probability.toFixed(6) : 'approximately 0'}
 
-Result: ${(probability * 100).toFixed(4)}% probability
+Result: ${isFinite(probability) ? (probability * 100).toFixed(4) : '0.0000'}% probability
   `;
-  
-  return { probability, calculation };
+    
+    return { probability: safeProbability, calculation };
+  } catch (error) {
+    console.error('Error in binomial calculation:', error);
+    return { 
+      probability: 0, 
+      calculation: `Error calculating binomial probability: ${error.message}` 
+    };
+  }
 };
 
 // Save traffic simulation
@@ -108,6 +131,7 @@ exports.saveTrafficSimulation = async (req, res) => {
       data: savedSimulation
     });
   } catch (error) {
+    console.error('Error saving traffic simulation:', error);
     res.status(500).json({
       success: false,
       message: error.message

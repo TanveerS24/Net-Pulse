@@ -307,31 +307,6 @@ const ServerPerformance = () => {
           </div>
         </div>
       )}
-
-      {/* Detailed Boost Recommendation */}
-      {metrics && metrics.boost_recommendation && (
-        <div className="calculation-card">
-          <h3 className="calc-title">📊 Detailed Boost Recommendation</h3>
-          <div className="recommendation-box" style={{ marginTop: '1rem' }}>
-            <pre style={{ whiteSpace: 'pre-wrap', margin: 0, fontSize: '1rem', lineHeight: '1.6' }}>
-              {metrics.boost_recommendation}
-            </pre>
-          </div>
-        </div>
-      )}
-
-      {/* Complete Poisson Calculation */}
-      {metrics && metrics.poisson_calculation && (
-        <div className="calculation-card">
-          <h3 className="calc-title">🧮 Complete Poisson Distribution Calculation</h3>
-          <div className="formula-display">
-            <p className="formula">P(X = k) = (λ^k × e^-λ) / k!</p>
-          </div>
-          <pre className="calculation-steps" style={{ fontSize: '0.95rem', lineHeight: '1.8' }}>
-            {metrics.poisson_calculation}
-          </pre>
-        </div>
-      )}
     </div>
   );
 };

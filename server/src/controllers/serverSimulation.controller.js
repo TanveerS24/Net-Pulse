@@ -57,9 +57,15 @@ exports.saveServerSimulation = async (req, res) => {
       server_utilization
     } = req.body;
 
+    // Calculate lambda for Poisson distribution
+    // lambda = request_count * (success_rate)
+    // Using server_utilization as a proxy for success rate (higher utilization = more successful processing)
+    const success_rate = server_utilization / 100;
+    const lambda = request_count * success_rate;
+
     // Calculate Poisson probability for current request count
     const { probability: poissonProb, calculation } = calculatePoissonProbability(
-      arrival_rate,
+      lambda,
       request_count
     );
 
