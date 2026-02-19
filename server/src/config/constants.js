@@ -1,0 +1,68 @@
+/**
+ * Application constants for server and traffic simulations
+ */
+
+// Server Utilization Thresholds
+const SERVER_THRESHOLDS = {
+  CRITICAL: 90,
+  WARNING: 80,
+  MODERATE: 70,
+  OPTIMAL: 0
+};
+
+// Server Scaling Recommendations
+const SCALING_RECOMMENDATIONS = {
+  CRITICAL: {
+    CPU_SCALING: 40,
+    INSTANCE_SCALING: 3,
+    BOOST_PERCENTAGE: 50,
+    AUTO_SCALING_THRESHOLD: 75
+  },
+  WARNING: {
+    CPU_SCALING: 25,
+    INSTANCE_SCALING: 2,
+    BOOST_PERCENTAGE: 30,
+    AUTO_SCALING_THRESHOLD: 70
+  },
+  MODERATE: {
+    CPU_SCALING: 15,
+    INSTANCE_SCALING: 1,
+    BOOST_PERCENTAGE: 15,
+    AUTO_SCALING_THRESHOLD: 65
+  }
+};
+
+// Performance Metrics
+const PERFORMANCE_METRICS = {
+  OVERLOAD_BASE_THRESHOLD: 80,
+  QUEUE_DELAY_MULTIPLIER: 0.1, // seconds per queue item
+};
+
+// Traffic Reliability Thresholds
+const RELIABILITY_THRESHOLDS = {
+  EXCELLENT: 95,
+  MODERATE: 80
+};
+
+// Traffic Scaling Factors
+const TRAFFIC_SCALING_FACTORS = {
+  NORMALIZATION_DIVISOR: 1000,
+  HORIZONTAL_MULTIPLIER: 0.5,
+  VERTICAL_MULTIPLIER: 20,
+  RETRANSMISSION_MULTIPLIER: 1.5
+};
+
+// Console Output Formatting
+const CONSOLE_FORMATTING = {
+  SEPARATOR_LENGTH: 60,
+  SEPARATOR_CHAR: '='
+};
+
+module.exports = {
+  SERVER_THRESHOLDS,
+  SCALING_RECOMMENDATIONS,
+  PERFORMANCE_METRICS,
+  RELIABILITY_THRESHOLDS,
+  TRAFFIC_SCALING_FACTORS,
+  CONSOLE_FORMATTING
+};
